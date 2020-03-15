@@ -27,23 +27,36 @@ class HotwheelersController < ApplicationController
     redirect "/hotwheelers/#{@hotw.id}"
   end
 
+  get "/hotwheelers/logout" do
+    session.clear
+    redirect "/hotwheelers/login"
+  end
+
   # GET: /hotwheelers/5
   get "/hotwheelers/:id" do
+    @hotw = Hotwheeler.find(params[:id])
+    # binding.pry
     erb :"/hotwheelers/show"
   end
 
-  # GET: /hotwheelers/5/edit
   get "/hotwheelers/:id/edit" do
-    erb :"/hotwheelers/edit.html"
-  end
+      @hotw = Hotwheeler.find(params[:id])
 
-  # PATCH: /hotwheelers/5
+      erb :"/hotwheelers/edit"
+    end
+
   patch "/hotwheelers/:id" do
-    redirect "/hotwheelers/:id"
-  end
 
-  # DELETE: /hotwheelers/5/delete
-  delete "/hotwheelers/:id/delete" do
-    redirect "/hotwheelers"
-  end
+      @hotw = Hotwheeler.find(params[:id])
+
+      @hotw.update(name: params[:name], age: params[:age], username: params[:username])
+      redirect "/hotwheelers/#{@hotw.id}"
+    end
+
+    delete "/hotwheelers/:id" do
+      @hotw = Hotwheeler.find(params[:id])
+      @hotw.destroy
+      redirect "/hotwheelers/login"
+    end
+
 end
