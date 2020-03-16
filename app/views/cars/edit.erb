@@ -1,0 +1,10 @@
+<h1>Insert the form to edit an instance of your model here.</h1>
+<form method="post" action="/cars/<%= @car.id %>">
+  <input name="_method" type="hidden" value="patch">
+  <h3>Year: <input type="text" value="<%= @car.year %>" name="year"></h3>
+  <h3>Make: <input type="text" value="<%= @car.make %>" name="make"></h3>
+  <h3>Model: <input type="text" value="<%= @car.model %>" name="model"></h3>
+  <h3>Color: <input type="text" value="<%= @car.color %>" name="color"></h3>
+  <h3>Rank: <input type="text" value="<%= @car.rank %>" name="rank"></h3>
+  <input type="submit" value="Submit">
+</form>
