@@ -1,1 +1,11 @@
 <h1>This is the Model's index page.</h1>
+<% @cars.each do |c| %>
+  <h4>Year: <%= c.year %></h4>
+  <h4>Make: <%= c.make %><h4>
+  <h4>Model: <%= c.model %><h4>
+  <h4>Color: <%= c.color %><h4>
+  <h4>Rank: <%= c.rank %><h4>
+<br>
+<% end %>
+
+<h3><a href="/hotwheelers/<%= session[:user_id] %>">Back</a></h3>

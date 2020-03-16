@@ -1,2 +1,14 @@
 <h1>This is the show page for an individual instance of your Car model.</h1>
-<%= @car %>
+<h3>Year: <%= @car.year %></h3>
+<h3>Make: <%= @car.make %><h3>
+<h3>Model: <%= @car.model %><h3>
+<h3>Color: <%= @car.color %><h3>
+<h3>Rank: <%= @car.rank %><h3>
+
+<a href="/cars/<%= @car.id %>/edit">Edit a Car</a>
+
+<form method="post" action="/cars/<%= @car.id %>">
+  <input type="hidden" name="-method" value="DELETE">
+  <input type="submit" value="Delete Car">
+</form>
+<h3><a href="/hotwheelers/<%= session[:user_id] %>">Back</a></h3>

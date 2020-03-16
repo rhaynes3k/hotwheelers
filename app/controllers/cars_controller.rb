@@ -2,36 +2,51 @@ class CarsController < ApplicationController
 
   # GET: /cars
   get "/cars" do
-    erb :"/cars/index.html"
+    @cars = Car.all
+    # binding.pry
+    erb :"/cars/index"
   end
 
   # GET: /cars/new
   get "/cars/new" do
-    erb :"/cars/new.html"
+    if !logged_in?
+      redirect "/login"
+    else
+      erb :"/cars/new"
+    end
+
   end
 
   # POST: /cars
   post "/cars" do
-    redirect "/cars"
+    @car = Car.create(params)
+    redirect "/cars/#{@car.id}"
   end
 
   # GET: /cars/5
   get "/cars/:id" do
-    erb :"/cars/show.html"
+    @car = Car.find(params[:id])
+    erb :"/cars/show"
   end
 
-  # GET: /cars/5/edit
   get "/cars/:id/edit" do
-    erb :"/cars/edit.html"
+    @car = Car.find(params[:id])
+
+    erb :"/cars/edit"
   end
 
-  # PATCH: /cars/5
   patch "/cars/:id" do
-    redirect "/cars/:id"
+
+    @car = Car.find(params[:id])
+
+    @car.update(year: params[:year], make: params[:make], model: params[:model], color: params[:color], rank: params[:rank])
+    redirect "/cars/#{@car.id}"
   end
 
-  # DELETE: /cars/5/delete
-  delete "/cars/:id/delete" do
+  delete "/cars/:id" do
+    @car = Car.find(params[:id])
+    @car.destroy
     redirect "/cars"
   end
+
 end

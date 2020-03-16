@@ -2,9 +2,15 @@
 <h2>Hotwheeler Name: <%= @hotw.name %></h2>
 <h2>Hotwheeler Age: <%= @hotw.age %></h2>
 
+
 <!-- <input type="submit" a href= value="Logout"> -->
-<a href="/hotwheelers/<%= @hotw.id %>/edit">Edit</a>
-<br
-<a href="/cars/<%= @hotw.id %>/edit">Edit</a>
-<br>
-<a href="/hotwheelers/logout">Logout</a>
+<div>
+  <a href="/cars">All Cars</a>
+  <a href="/cars/new">Add a Car</a>
+</div>
+<div>
+  <a href="/hotwheelers/<%= @hotw.id %>/edit">User Edit</a>
+  <br>
+  <br>
+  <a href="/logout">Logout</a>
+</div>

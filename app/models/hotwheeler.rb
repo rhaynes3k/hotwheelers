@@ -1,2 +1,5 @@
 class Hotwheeler < ActiveRecord::Base
+  has_secure_password
+  has_many :cars
+
 end

@@ -2,18 +2,10 @@ class HotwheelersController < ApplicationController
 
   # GET: /hotwheelers
   get "/hotwheelers" do
-    erb :"/hotwheelers/index.html"
+    erb :"/hotwheelers/index"
   end
 
-  get "/hotwheelers/login" do
-    erb :"/hotwheelers/login"
-  end
 
-  post "/hotwheelers/login" do
-    hotwheeler = Hotwheeler.find_by(username: params[:username])
-    session[:user_id] = hotwheeler.id
-    redirect "/hotwheelers/#{hotwheeler.id}"
-  end
 
   # GET: /hotwheelers/new
   get "/hotwheelers/new" do
@@ -23,14 +15,11 @@ class HotwheelersController < ApplicationController
   # POST: /hotwheelers
   post "/hotwheelers" do
     @hotw = Hotwheeler.create(params)
-    # binding.pry
-    redirect "/hotwheelers/#{@hotw.id}"
+    # raise params.inspect
+    redirect "/cars"
   end
 
-  get "/hotwheelers/logout" do
-    session.clear
-    redirect "/hotwheelers/login"
-  end
+
 
   # GET: /hotwheelers/5
   get "/hotwheelers/:id" do
