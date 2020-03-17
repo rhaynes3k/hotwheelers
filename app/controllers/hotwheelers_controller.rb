@@ -15,11 +15,16 @@ class HotwheelersController < ApplicationController
   # POST: /hotwheelers
   post "/hotwheelers" do
     @hotw = Hotwheeler.create(params)
-    # raise params.inspect
+    session[:user_id] = params[:user_id]
     redirect "/cars"
   end
 
-
+  delete "/hotwheelers/:id" do
+    @hotw = Hotwheeler.find(params[:id])
+    binding.pry
+    @hotw.destroy
+    redirect "/login"
+  end
 
   # GET: /hotwheelers/5
   get "/hotwheelers/:id" do
@@ -42,10 +47,6 @@ class HotwheelersController < ApplicationController
       redirect "/hotwheelers/#{@hotw.id}"
     end
 
-    delete "/hotwheelers/:id" do
-      @hotw = Hotwheeler.find(params[:id])
-      @hotw.destroy
-      redirect "/hotwheelers/login"
-    end
+
 
 end
