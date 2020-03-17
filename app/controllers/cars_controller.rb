@@ -19,8 +19,12 @@ class CarsController < ApplicationController
 
   # POST: /cars
   post "/cars" do
-    @car = Car.create(params)
-    redirect "/cars/#{@car.id}"
+    if !logged_in?
+      redirect "/login"
+    else
+      @car = Car.create(year: params[:year], make: params[:make], model: params[:model], color: params[:color], rank: params[:rank], hotwheeler_id: current_user.id)
+      redirect "/cars/#{@car.id}"
+    end
   end
 
   # GET: /cars/5
