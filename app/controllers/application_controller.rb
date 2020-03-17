@@ -19,9 +19,9 @@ class ApplicationController < Sinatra::Base
 
   post "/login" do
     hotwheeler = Hotwheeler.find_by(username: params[:username])
+    hotwheeler.authenticate(params[:password])
     session[:user_id] = hotwheeler.id
-    # binding.pry
-    redirect "/cars/"
+    redirect "/hotwheelers/#{hotwheeler.id}"
   end
 
   get "/logout" do
@@ -32,10 +32,14 @@ class ApplicationController < Sinatra::Base
   helpers do
 
     def logged_in?
-      !!session[:user_id]
+      !!current_user
     end
 
   end
 
+
+    def current_user
+      @current_user ||= Hotwheeler.find_by(id: session[:user_id])
+    end
 
 end
