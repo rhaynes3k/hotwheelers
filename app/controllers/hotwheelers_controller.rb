@@ -14,9 +14,15 @@ class HotwheelersController < ApplicationController
 
   # POST: /hotwheelers
   post "/hotwheelers" do
+    if params[:name] != "" && params[:email] != "" && params[:password] != ""
     @hotw = Hotwheeler.create(params)
     session[:user_id] = params[:user_id]
+    binding.pry
     redirect "/cars"
+    else
+      redirect "/login"
+    end
+
   end
 
   delete "/hotwheelers/:id" do
