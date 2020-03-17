@@ -1,5 +1,5 @@
 rommel = Hotwheeler.create(name: "Rommel", age: "49", fav: "nil", username: "rom1", password: "rom1")
-alexandria = Hotwheeler.create(name: "Alexandria", age: "11", fav: "nil", username: "alex1", password: "alex1")
+alex = Hotwheeler.create(name: "Alexandria", age: "11", fav: "nil", username: "alex1", password: "alex1")
 jurnee = Hotwheeler.create(name: "Jurnee", age: "9", fav: "nil", username: "jur1", password: "jur1")
 angie = Hotwheeler.create(name: "Angie", age: "45", fav: "nil", username: "ang1", password: "ang1")
 
