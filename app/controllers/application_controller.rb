@@ -21,7 +21,7 @@ class ApplicationController < Sinatra::Base
     hotwheeler = Hotwheeler.find_by(username: params[:username])
     hotwheeler.authenticate(params[:password])
     session[:user_id] = hotwheeler.id
-    redirect "/hotwheelers/#{hotwheeler.id}"
+    redirect "/hotwheelers"
   end
 
   get "/logout" do
