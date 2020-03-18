@@ -1,1 +1,36 @@
 <h1>This is the Model's index page.</h1>
+<p><% @hotw.each do |h| %></p>
+    <% if current_user.id == h.id %>
+      Name: <a href="/hotwheelers/<%= current_user.id %>}"><%= h.name %></a> <br>
+    <% else %>
+      Name: <%= h.name %>
+    <% end %>
+
+    <br>
+    Age: <%= h.age %>
+    Fav: <%= h.fav %>
+    <p>Cars</p>
+    <ol type="1">
+      <% h.cars.each do |c| %>
+        <li>Year: <%= c.year %></li>
+        <li>Make: <%= c.make %></li>
+        <li>Model: <%= c.model %></li>
+        <li>Color: <%= c.color %></li>
+        <li>Rank: <%= c.rank %></li>
+        <% if current_user.id == h.id %>
+        <a href="/cars/<%= c.id %>/edit">Edit Car</a>
+        <form method="post" action="/cars/<%= c.id %>">
+          <input type="hidden" name="_method" value="DELETE">
+          <input type="submit" value="Delete Car">
+        </form>
+        <br>
+        <% end %>
+
+        <br>
+    </ol>
+      <% end %>
+    <% if current_user.id == h.id %>
+      <a href="/logout">Logout</a>
+    <% end %>
+    <hr>
+  <% end %>
