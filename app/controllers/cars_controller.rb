@@ -35,8 +35,15 @@ class CarsController < ApplicationController
 
   get "/cars/:id/edit" do
     @car = Car.find(params[:id])
-
-    erb :"/cars/edit"
+    if logged_in?
+      if @car.hotwheeler_id == current_user.id
+        erb :"/cars/edit"
+      else
+        redirect "/hotwheelers/#{current_user.id}"
+      end
+    else
+      redirect "/login"
+    end
   end
 
   patch "/cars/:id" do
@@ -50,7 +57,7 @@ class CarsController < ApplicationController
   delete "/cars/:id" do
     @car = Car.find(params[:id])
     @car.destroy
-    redirect "/cars"
+    redirect "/hotwheelers"
   end
 
 end
