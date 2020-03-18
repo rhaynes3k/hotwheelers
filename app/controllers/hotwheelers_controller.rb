@@ -2,7 +2,14 @@ class HotwheelersController < ApplicationController
 
   # GET: /hotwheelers
   get "/hotwheelers" do
+    @hotw = Hotwheeler.all
+
+    if session[:user_id] = current_user.id
+      binding.pry
     erb :"/hotwheelers/index"
+    else
+      redirect "/login"
+    end
   end
 
 
@@ -17,8 +24,7 @@ class HotwheelersController < ApplicationController
     if params[:name] != "" && params[:email] != "" && params[:password] != ""
     @hotw = Hotwheeler.create(params)
     session[:user_id] = params[:user_id]
-    binding.pry
-    redirect "/cars"
+    redirect "/hotwheelers"
     else
       redirect "/login"
     end
@@ -27,7 +33,6 @@ class HotwheelersController < ApplicationController
 
   delete "/hotwheelers/:id" do
     @hotw = Hotwheeler.find(params[:id])
-    binding.pry
     @hotw.destroy
     redirect "/login"
   end
