@@ -6,11 +6,11 @@
 <!-- <input type="submit" a href= value="Logout"> -->
 <div>
   <a href="/hotwheelers">All Cars</a>
-  <a href="/cars/new">Add a Car</a>
-</div>
-<div>
-  <a href="/hotwheelers/<%= @hotw.id %>/edit">User Edit</a>
+  <%if @hotw.id == current_user.id %>
+  <p><a href="/cars/new">Add a Car</a></p>
+  <p><a href="/hotwheelers/<%= @hotw.id %>/edit">User Edit</a></p>
   <br>
   <br>
   <a href="/logout">Logout</a>
+  <% end %>
 </div>
