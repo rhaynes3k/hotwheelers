@@ -18,6 +18,7 @@ class ApplicationController < Sinatra::Base
   end
 
   post "/login" do
+
     hotwheeler = Hotwheeler.find_by(username: params[:username])
     hotwheeler.authenticate(params[:password])
     session[:user_id] = hotwheeler.id
@@ -36,7 +37,6 @@ class ApplicationController < Sinatra::Base
     end
 
   end
-
 
     def current_user
       @current_user ||= Hotwheeler.find_by(id: session[:user_id])
