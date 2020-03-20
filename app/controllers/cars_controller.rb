@@ -2,9 +2,13 @@ class CarsController < ApplicationController
 
   # GET: /cars
   get "/cars" do
-    @cars = Car.all
-    # binding.pry
-    erb :"/cars/index"
+    if logged_in?
+      @cars = Car.all
+      erb :"/cars/index"
+    else
+      redirect "/login"
+    end
+
   end
 
   # GET: /cars/new
@@ -29,8 +33,13 @@ class CarsController < ApplicationController
 
   # GET: /cars/5
   get "/cars/:id" do
-    @car = Car.find(params[:id])
-    erb :"/cars/show"
+    if logged_in?
+      @car = Car.find(params[:id])
+      erb :"/cars/show"
+    else
+      redirect "/login"
+    end
+
   end
 
   get "/cars/:id/edit" do
@@ -49,9 +58,12 @@ class CarsController < ApplicationController
   patch "/cars/:id" do
 
     @car = Car.find(params[:id])
-
-    @car.update(year: params[:year], make: params[:make], model: params[:model], color: params[:color], rank: params[:rank])
-    redirect "/cars/#{@car.id}"
+    if @car.hotwheeler_id == current_user.id
+      @car.update(year: params[:year], make: params[:make], model: params[:model], color: params[:color], rank: params[:rank])
+      redirect "/cars/#{@car.id}"
+    else
+      redirect "/login"
+    end
   end
 
   delete "/cars/:id" do
