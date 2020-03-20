@@ -26,8 +26,8 @@ class CarsController < ApplicationController
     if !logged_in?
       redirect "/login"
     else
-      @car = Car.create(year: params[:year], make: params[:make], model: params[:model], color: params[:color], rank: params[:rank], hotwheeler_id: current_user.id)
-      redirect "/cars/#{@car.id}"
+        @car = Car.create(year: params[:year], make: params[:make], model: params[:model], color: params[:color], rank: params[:rank], hotwheeler_id: current_user.id)
+        redirect "/cars/#{@car.id}"
     end
   end
 

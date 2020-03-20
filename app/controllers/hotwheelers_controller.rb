@@ -20,15 +20,35 @@ class HotwheelersController < ApplicationController
 
   # POST: /hotwheelers
   post "/hotwheelers" do
-    if params[:name] != "" && params[:email] != "" && params[:password] != ""
     @hotw = Hotwheeler.create(params)
     session[:user_id] = @hotw.id
     redirect "/hotwheelers"
-    else
-      redirect "/login"
+  end
+
+
+    get "/hotwheelers/:id/edit" do
+        @hotw = Hotwheeler.find(params[:id])
+      if @hotw.id == current_user.id
+        erb :"/hotwheelers/edit"
+      else
+        redirect "/login"
+      end
+
     end
 
-  end
+    patch "/hotwheelers/:id" do
+      @hotw = Hotwheeler.find(params[:id])
+
+      if @hotw.id == current_user.id
+        @hotw.update(name: params[:name], age: params[:age], username: params[:username], password: params[:password])
+        @hotw
+        binding.pry
+        redirect "/hotwheelers/#{@hotw.id}"
+      else
+        redirect "/hotwheelers/#{@hotw.id}/edit"
+      end
+
+    end
 
   delete "/hotwheelers/:id" do
     if logged_in?
@@ -50,27 +70,6 @@ class HotwheelersController < ApplicationController
 
   end
 
-  get "/hotwheelers/:id/edit" do
-      @hotw = Hotwheeler.find(params[:id])
-    if @hotw.id == current_user.id
-      erb :"/hotwheelers/edit"
-    else
-      redirect "/login"
-    end
-
-  end
-
-  patch "/hotwheelers/:id" do
-      @hotw = Hotwheeler.find(params[:id])
-
-      if @hotw.id == current_user.id
-        @hotw.update(name: params[:name], age: params[:age], username: params[:username], password: params[:password])
-        redirect "/hotwheelers/#{@hotw.id}"
-      else
-        redirect "/hotwheelers/#{@hotw.id}/edit"
-      end
-
-    end
 
 
 
