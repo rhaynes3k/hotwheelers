@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20200319082644) do
+ActiveRecord::Schema.define(version: 20200320210310) do
 
   create_table "cars", force: :cascade do |t|
     t.string  "year"
@@ -23,10 +23,10 @@ ActiveRecord::Schema.define(version: 20200319082644) do
   end
 
   create_table "hotwheelers", force: :cascade do |t|
-    t.string "name"
-    t.string "age"
-    t.string "username"
-    t.string "password_digest"
+    t.string  "name"
+    t.string  "username"
+    t.string  "password_digest"
+    t.integer "age"
   end
 
 end

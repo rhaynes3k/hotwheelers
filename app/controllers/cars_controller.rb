@@ -1,6 +1,5 @@
 class CarsController < ApplicationController
 
-  # GET: /cars
   get "/cars" do
     if logged_in?
       @cars = Car.all
@@ -8,30 +7,25 @@ class CarsController < ApplicationController
     else
       redirect "/login"
     end
-
   end
 
-  # GET: /cars/new
   get "/cars/new" do
     if !logged_in?
       redirect "/login"
     else
       erb :"/cars/new"
     end
-
   end
 
-  # POST: /cars
   post "/cars" do
     if !logged_in?
       redirect "/login"
     else
-        @car = Car.create(year: params[:year], make: params[:make], model: params[:model], color: params[:color], rank: params[:rank], hotwheeler_id: current_user.id)
-        redirect "/cars/#{@car.id}"
+      @car = Car.create(year: params[:year], make: params[:make], model: params[:model], color: params[:color], rank: params[:rank], hotwheeler_id: current_user.id)
+      redirect "/cars/#{@car.id}"
     end
   end
 
-  # GET: /cars/5
   get "/cars/:id" do
     if logged_in?
       @car = Car.find(params[:id])
@@ -39,7 +33,6 @@ class CarsController < ApplicationController
     else
       redirect "/login"
     end
-
   end
 
   get "/cars/:id/edit" do

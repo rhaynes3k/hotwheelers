@@ -1,54 +1,47 @@
 class HotwheelersController < ApplicationController
 
-  # GET: /hotwheelers
-
   get "/hotwheelers" do
     if logged_in?
-    @hotw = Hotwheeler.all
-    erb :"/hotwheelers/index"
+      @hotw = Hotwheeler.all
+      erb :"/hotwheelers/index"
     else
       redirect "/login"
     end
   end
 
-
-
-  # GET: /hotwheelers/new
   get "/hotwheelers/new" do
-      erb :"/hotwheelers/new"
+    erb :"/hotwheelers/new"
   end
 
-  # POST: /hotwheelers
   post "/hotwheelers" do
     @hotw = Hotwheeler.create(params)
     session[:user_id] = @hotw.id
     redirect "/hotwheelers"
   end
 
-
-    get "/hotwheelers/:id/edit" do
-        @hotw = Hotwheeler.find(params[:id])
-      if @hotw.id == current_user.id
-        erb :"/hotwheelers/edit"
-      else
-        redirect "/login"
-      end
-
+  get "/hotwheelers/:id/edit" do
+    @hotw = Hotwheeler.find(params[:id])
+    if @hotw.id == current_user.id
+      erb :"/hotwheelers/edit"
+    else
+      redirect "/login"
     end
+  end
 
-    patch "/hotwheelers/:id" do
-      @hotw = Hotwheeler.find(params[:id])
+  patch "/hotwheelers/:id" do
+    @hotw = Hotwheeler.find(params[:id])
+    if @hotw.id == current_user.id
+#       if params[:password].blank?
+# params.delete(:password)
+# end
 
-      if @hotw.id == current_user.id
-        @hotw.update(name: params[:name], age: params[:age], username: params[:username], password: params[:password])
-        @hotw
-        binding.pry
-        redirect "/hotwheelers/#{@hotw.id}"
-      else
-        redirect "/hotwheelers/#{@hotw.id}/edit"
-      end
+      @hotw.update(name: params[:name], age: params[:age].to_i, username: params[:username], password: params[:password])
 
+      redirect "/hotwheelers/#{@hotw.id}"
+    else
+      redirect "/hotwheelers/#{@hotw.id}/edit"
     end
+  end
 
   delete "/hotwheelers/:id" do
     if logged_in?
@@ -56,21 +49,15 @@ class HotwheelersController < ApplicationController
       @hotw.destroy
       redirect "/login"
     end
-
   end
 
-  # GET: /hotwheelers/5
   get "/hotwheelers/:id" do
     if logged_in?
-    @hotw = Hotwheeler.find(params[:id])
-    erb :"/hotwheelers/show"
+      @hotw = Hotwheeler.find(params[:id])
+      erb :"/hotwheelers/show"
     else
       redirect "/login"
     end
-
   end
-
-
-
 
 end
