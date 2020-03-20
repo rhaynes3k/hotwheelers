@@ -1,8 +1,10 @@
 <h1>Insert the form to edit an instance of your model here.</h1>
+
 <form method="post" action="/hotwheelers/<%= @hotw.id %>">
   <input name="_method" type="hidden" value="patch">
   <h3>Name: <input type="text" value="<%= @hotw.name %>" name="name"></h3>
-  <h3>Username: <input type="text" value="<%= @hotw.username %>"name="username"></h3>
+  <h3>Username: <input type="text" value="<%= @hotw.username %>" name="username"></h3>
   <h3>Age: <input type="text" value="<%= @hotw.age %>"name="age"></h3>
+  <h3>Password: <input type="password" value="<%= @hotw.password %>"name="password"></h3>
   <input type="submit" value="Submit">
 </form>
