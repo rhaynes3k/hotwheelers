@@ -1,4 +1,4 @@
-<h1>This is the Model's index page.</h1>
+<h8>Logged in as <%= current_user.name %>.</h8>
 <p><% @hotw.each do |h| %></p>
     <% if current_user.id == h.id %>
       Name: <a href="/hotwheelers/<%= current_user.id %>}"><%= h.name %></a> <br>
