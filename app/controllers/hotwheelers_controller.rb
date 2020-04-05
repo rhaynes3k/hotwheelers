@@ -15,8 +15,12 @@ class HotwheelersController < ApplicationController
 
   post "/hotwheelers" do
     @hotw = Hotwheeler.create(params)
-    session[:user_id] = @hotw.id
-    redirect "/hotwheelers"
+    if @hotw.valid?
+      session[:user_id] = @hotw.id
+      redirect "/hotwheelers"
+    else
+      redirect '/hotwheelers/new'
+    end
   end
 
   get "/hotwheelers/:id/edit" do

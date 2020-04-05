@@ -66,9 +66,15 @@ class CarsController < ApplicationController
   end
 
   delete "/cars/:id" do
-    @car = Car.find(params[:id])
-    @car.destroy
-    redirect "/hotwheelers"
+    if logged_in?
+      @car = Car.find(params[:id])
+      if @car.hotwheeler_id == current_user.id
+        @car.destroy
+      end
+      redirect "/hotwheelers"
+    else
+      redirect '/login'
+    end
   end
 
 end
